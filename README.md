@@ -16,12 +16,16 @@ Requires following haskell packages from hackage:
 Usage
 -----
 Create a config.json file with the content
+
+```
     {
       "apiKey": "your consumer key",
       "apiSecret": "your consumer secret",
       "userKey": "your access token",
       "userSecret": "your access token secret"
     }
+```
+
 and place it together with a compiled grammatical framework grammar
 called Foods.pgf in the same directory
 
