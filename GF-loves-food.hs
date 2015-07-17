@@ -3,7 +3,8 @@ import System.Random
 import System.IO
 import Data.Time.Clock.POSIX
 import System.CPUTime
-
+import Twitter
+    
 selectRandom :: RandomGen g => [a] -> g -> (a, g)
 selectRandom list rnd =
   let
@@ -23,9 +24,13 @@ generate pgf rnd =
 
 main =
   do
-    cputime <- getCPUTime
-    pgf <- (readPGF "Foods.pgf")
-    time <- round `fmap` getPOSIXTime 
-    let rnd = (mkStdGen (fromInteger (toInteger time + cputime ) ))
+    pgf <- readPGF "Foods.pgf"
+    conf <- configFromFile "config.json"
+    time <- round `fmap` getPOSIXTime
+    cpuptime <- getCPUTime
+    let cputime = cpuptime `div` 100000000
+    let rnd = mkStdGen (fromInteger (toInteger (time + cputime) ) )
     let (s,newRnd) = generate pgf rnd
+
     putStrLn s
+    either putStrLn (\c -> tweet c s) conf
