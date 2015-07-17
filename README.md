@@ -13,6 +13,7 @@ Requires following haskell packages from hackage:
 * http-types
 * authenticate-oauth
 
+Also use the parameters -XRecordWildCards -XDeriveGeneric
 Usage
 -----
 Create a config.json file with the content
