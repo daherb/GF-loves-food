@@ -44,11 +44,12 @@ signWithConfig Config{..} = signOAuth
   (oauthTwitter (B.pack apiKey) (B.pack apiSecret))
   (newCredential (B.pack userKey) (B.pack userSecret))
 
-tweet :: Config -> String -> IO () --IO (Response BL.ByteString)
+tweet :: Config -> String -> IO() --IO (Response BL.ByteString)
 tweet config status = do
   url <- parseUrl $ "https://api.twitter.com/1.1/statuses/update.json?status=" ++ HTTP.urlEncode status
   req <- signWithConfig config url{ method = B.pack "POST" }
   manager <- newManager tlsManagerSettings
-  httpLbs req manager
-  print "Tweeted"
+  res <- httpLbs req manager
+  Prelude.putStrLn "Tweeted"
+  
 
