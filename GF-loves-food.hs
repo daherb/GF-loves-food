@@ -4,6 +4,8 @@ import System.IO
 import Data.Time.Clock.POSIX
 import System.CPUTime
 import Twitter
+import Network.HTTP.Client
+import Data.ByteString.Lazy.Char8 hiding (putStrLn, length, head)
     
 selectRandom :: RandomGen g => [a] -> g -> (a, g)
 selectRandom list rnd =
@@ -33,4 +35,4 @@ main =
     let (s,newRnd) = generate pgf rnd
 
     putStrLn s
-    either putStrLn (\c -> tweet c s) conf
+    either putStrLn (\c -> tweet c s >>= putStrLn . unpack . responseBody >> return () ) conf
