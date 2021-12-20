@@ -33,3 +33,5 @@ called Foods.pgf in the same directory
 Sources
 -------
 The twitter code is from http://kovach.me/posts/2014-08-09-twitter.html
+
+Copyright (c) 2015 Herbert Lange
